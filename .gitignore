@@ -1,0 +1,13 @@
+*.o
+sample
+testsuite
+testsuite.expected
+testsuite.out
+testsuite.err
+
+
+.vs/
+build/
+out/
+
+CMakeSettings.json
