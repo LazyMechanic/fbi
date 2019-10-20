@@ -18,10 +18,10 @@ string(TOLOWER ${${SUBPROJ_NAME}_TARGET_TYPE} ${SUBPROJ_NAME}_TARGET_TYPE_LOWER)
 
 set(
     ${SUBPROJ_NAME}_HEADERS
+    "fbi.hh"
     "BigInteger.hh"
     "BigInteger.inl"
     "BigIntegerAlgorithms.hh"
-    "BigIntegerLibrary.hh"
     "BigIntegerUtils.hh"
     "BigUnsigned.hh"
     "BigUnsigned.inl"

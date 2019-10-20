@@ -1,96 +1,96 @@
 // Sample program demonstrating the use of the Big Integer Library.
 
 // Standard libraries
-#include <string>
 #include <iostream>
+#include <string>
 
 // `BigIntegerLibrary.hh' includes all of the library headers.
-#include "BigIntegerLibrary.hh"
+#include "fbi/fbi.hh"
 
-int main() {
-	/* The library throws `const char *' error messages when things go
-	 * wrong.  It's a good idea to catch them using a `try' block like this
-	 * one.  Your C++ compiler might need a command-line option to compile
-	 * code that uses exceptions. */
-	try {
-		BigInteger a; // a is 0
-		int b = 535;
+using namespace fbi;
 
-		/* Any primitive integer can be converted implicitly to a
-		 * BigInteger. */
-		a = b;
+int main()
+{
+    /* The library throws `const char *' error messages when things go
+     * wrong.  It's a good idea to catch them using a `try' block like this
+     * one.  Your C++ compiler might need a command-line option to compile
+     * code that uses exceptions. */
+    try {
+        BigInteger a; // a is 0
+        int b = 535;
 
-		/* The reverse conversion requires a method call (implicit
-		 * conversions were previously supported but caused trouble).
-		 * If a were too big for an int, the library would throw an
-		 * exception. */
-		b = a.toInt();
+        /* Any primitive integer can be converted implicitly to a
+         * BigInteger. */
+        a = b;
 
-		BigInteger c(a); // Copy a BigInteger.
+        /* The reverse conversion requires a method call (implicit
+         * conversions were previously supported but caused trouble).
+         * If a were too big for an int, the library would throw an
+         * exception. */
+        b = a.toInt();
 
-		// The int literal is converted to a BigInteger.
-		BigInteger d(-314159265);
+        BigInteger c(a); // Copy a BigInteger.
 
-		/* This won't compile (at least on 32-bit machines) because the
-		 * number is too big to be a primitive integer literal, and
-		 * there's no such thing as a BigInteger literal. */
-		//BigInteger e(3141592653589793238462643383279);
+        // The int literal is converted to a BigInteger.
+        BigInteger d(-314159265);
 
-		// Instead you can convert the number from a string.
-		std::string s("3141592653589793238462643383279");
-		BigInteger f = stringToBigInteger(s);
+        /* This won't compile (at least on 32-bit machines) because the
+         * number is too big to be a primitive integer literal, and
+         * there's no such thing as a BigInteger literal. */
+        // BigInteger e(3141592653589793238462643383279);
 
-		// You can convert the other way too.
-		std::string s2 = bigIntegerToString(f); 
+        // Instead you can convert the number from a string.
+        std::string s("3141592653589793238462643383279");
+        BigInteger f = stringToBigInteger(s);
 
-		// f is implicitly stringified and sent to std::cout.
-		std::cout << f << std::endl;
+        // You can convert the other way too.
+        std::string s2 = bigIntegerToString(f);
 
-		/* Let's do some math!  The library overloads most of the
-		 * mathematical operators (including assignment operators) to
-		 * work on BigIntegers.  There are also ``copy-less''
-		 * operations; see `BigUnsigned.hh' for details. */
+        // f is implicitly stringified and sent to std::cout.
+        std::cout << f << std::endl;
 
-		// Arithmetic operators
-		BigInteger g(314159), h(265);
-		std::cout << (g + h) << '\n'
-			<< (g - h) << '\n'
-			<< (g * h) << '\n'
-			<< (g / h) << '\n'
-			<< (g % h) << std::endl;
+        /* Let's do some math!  The library overloads most of the
+         * mathematical operators (including assignment operators) to
+         * work on BigIntegers.  There are also ``copy-less''
+         * operations; see `BigUnsigned.hh' for details. */
 
-		// Bitwise operators
-		BigUnsigned i(0xFF0000FF), j(0x0000FFFF);
-		// The library's << operator recognizes base flags.
-		std::cout.flags(std::ios::hex | std::ios::showbase);
-		std::cout << (i & j) << '\n'
-			<< (i | j) << '\n'
-			<< (i ^ j) << '\n'
-			// Shift distances are ordinary unsigned ints.
-			<< (j << 21) << '\n'
-			<< (j >> 10) << '\n';
-		std::cout.flags(std::ios::dec);
+        // Arithmetic operators
+        BigInteger g(314159), h(265);
+        std::cout << (g + h) << '\n' << (g - h) << '\n' << (g * h) << '\n' << (g / h) << '\n' << (g % h) << std::endl;
 
-		// Let's do some heavy lifting and calculate powers of 314.
-		int maxPower = 10;
-		BigUnsigned x(1), big314(314);
-		for (int power = 0; power <= maxPower; power++) {
-			std::cout << "314^" << power << " = " << x << std::endl;
-			x *= big314; // A BigInteger assignment operator
-		}
+        // Bitwise operators
+        BigUnsigned i(0xFF0000FF), j(0x0000FFFF);
+        // The library's << operator recognizes base flags.
+        std::cout.flags(std::ios::hex | std::ios::showbase);
+        std::cout << (i & j) << '\n'
+                  << (i | j) << '\n'
+                  << (i ^ j)
+                  << '\n'
+                  // Shift distances are ordinary unsigned ints.
+                  << (j << 21) << '\n'
+                  << (j >> 10) << '\n';
+        std::cout.flags(std::ios::dec);
 
-		// Some big-integer algorithms (albeit on small integers).
-		std::cout << gcd(BigUnsigned(60), 72) << '\n'
-			<< modinv(BigUnsigned(7), 11) << '\n'
-			<< modexp(BigUnsigned(314), 159, 2653) << std::endl;
+        // Let's do some heavy lifting and calculate powers of 314.
+        int maxPower = 10;
+        BigUnsigned x(1), big314(314);
+        for (int power = 0; power <= maxPower; power++) {
+            std::cout << "314^" << power << " = " << x << std::endl;
+            x *= big314; // A BigInteger assignment operator
+        }
 
-		// Add your own code here to experiment with the library.
-	} catch(char const* err) {
-		std::cout << "The library threw an exception:\n"
-			<< err << std::endl;
-	}
+        // Some big-integer algorithms (albeit on small integers).
+        std::cout << gcd(BigUnsigned(60), 72) << '\n'
+                  << modinv(BigUnsigned(7), 11) << '\n'
+                  << modexp(BigUnsigned(314), 159, 2653) << std::endl;
 
-	return 0;
+        // Add your own code here to experiment with the library.
+    }
+    catch (char const* err) {
+        std::cout << "The library threw an exception:\n" << err << std::endl;
+    }
+
+    return 0;
 }
 
 /*
