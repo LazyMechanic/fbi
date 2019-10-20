@@ -5,7 +5,7 @@
   - [CMake options](#cmake-options)
   - [Compiling](#compiling)
   - [Installing](#installing)
-  - [How to use](#how-to-use)
+  - [How to link](#how-to-link)
     - [Find package](#find-package)
     - [Link library](#link-library)
 - [Owerview](#owerview)
@@ -94,7 +94,7 @@ To install bigint:
 $ cmake --install . --prefix /path/to/install
 ```
 
-## How to use
+## How to link
 ### Find package
 Set `-Dfbi_DIR` path to the `fbi-config.cmake` file:
 ```bash
