@@ -25,7 +25,7 @@ limited only by your computer's memory.
 ## Getting sources
 Download from github:
 ```bash
-$ git clone https://github.com/kasparsklavins/bigint
+$ git clone https://github.com/LazyMechanic/fbi
 ```
 
 ## CMake configuration
