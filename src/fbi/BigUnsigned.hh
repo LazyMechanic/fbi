@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <cstdint>
 
 #include "NumberlikeArray.hh"
 
@@ -12,13 +13,13 @@ namespace fbi {
  * The number is stored as a NumberlikeArray of unsigned longs as if it were
  * written in base 256^sizeof(unsigned long).  The least significant block is
  * first, and the length is such that the most significant block is nonzero. */
-class BigUnsigned : protected NumberlikeArray<unsigned long> {
+class BigUnsigned : protected NumberlikeArray<unsigned long long> {
 public:
     // Enumeration for the result of a comparison.
     enum CmpRes { less = -1, equal = 0, greater = 1 };
 
     // BigUnsigneds are built with a Blk type of unsigned long.
-    typedef unsigned long Blk;
+    typedef unsigned long long Blk;
 
     typedef NumberlikeArray<Blk>::Index Index;
     using NumberlikeArray<Blk>::N;
@@ -47,12 +48,25 @@ public:
     ~BigUnsigned();
 
     // Constructors from primitive integer types
+
+    //BigUnsigned(unsigned long x);
+    //BigUnsigned(long x);
+    //BigUnsigned(unsigned int x);
+    //BigUnsigned(int x);
+    //BigUnsigned(unsigned short x);
+    //BigUnsigned(short x);
+
+    BigUnsigned(unsigned long long x);
     BigUnsigned(unsigned long x);
-    BigUnsigned(long x);
     BigUnsigned(unsigned int x);
-    BigUnsigned(int x);
     BigUnsigned(unsigned short x);
+    BigUnsigned(unsigned char x);
+
+    BigUnsigned(long long x);
+    BigUnsigned(long x);
+    BigUnsigned(int x);
     BigUnsigned(short x);
+    BigUnsigned(char x);
 
     // Constructor from string
     BigUnsigned(const std::string& str);
@@ -118,6 +132,19 @@ public:
     CmpRes compareTo(const BigUnsigned& x) const;
 
     // Ordinary comparison operators
+    template <typename Integer>
+    bool operator==(const Integer& x) const;
+    template <typename Integer>
+    bool operator!=(const Integer& x) const;
+    template <typename Integer>
+    bool operator<(const Integer& x) const;
+    template <typename Integer>
+    bool operator<=(const Integer& x) const;
+    template <typename Integer>
+    bool operator>=(const Integer& x) const;
+    template <typename Integer>
+    bool operator>(const Integer& x) const;
+
     bool operator==(const BigUnsigned& x) const;
     bool operator!=(const BigUnsigned& x) const;
     bool operator<(const BigUnsigned& x) const;
@@ -197,6 +224,23 @@ public:
      * `divideWithRemainder' instead. */
 
     // OVERLOADED RETURN-BY-VALUE OPERATORS
+    template <typename Integer>
+    BigUnsigned operator+(const Integer& x) const;
+    template <typename Integer>
+    BigUnsigned operator-(const Integer& x) const;
+    template <typename Integer>
+    BigUnsigned operator*(const Integer& x) const;
+    template <typename Integer>
+    BigUnsigned operator/(const Integer& x) const;
+    template <typename Integer>
+    BigUnsigned operator%(const Integer& x) const;
+    template <typename Integer>
+    BigUnsigned operator&(const Integer& x) const;
+    template <typename Integer>
+    BigUnsigned operator|(const Integer& x) const;
+    template <typename Integer>
+    BigUnsigned operator^(const Integer& x) const;
+
     BigUnsigned operator+(const BigUnsigned& x) const;
     BigUnsigned operator-(const BigUnsigned& x) const;
     BigUnsigned operator*(const BigUnsigned& x) const;
@@ -211,6 +255,23 @@ public:
     BigUnsigned operator>>(int b) const;
 
     // OVERLOADED ASSIGNMENT OPERATORS
+    template <typename Integer>
+    BigUnsigned& operator+=(const Integer& x);
+    template <typename Integer>
+    BigUnsigned& operator-=(const Integer& x);
+    template <typename Integer>
+    BigUnsigned& operator*=(const Integer& x);
+    template <typename Integer>
+    BigUnsigned& operator/=(const Integer& x);
+    template <typename Integer>
+    BigUnsigned& operator%=(const Integer& x);
+    template <typename Integer>
+    BigUnsigned& operator&=(const Integer& x);
+    template <typename Integer>
+    BigUnsigned& operator|=(const Integer& x);
+    template <typename Integer>
+    BigUnsigned& operator^=(const Integer& x);
+
     BigUnsigned& operator+=(const BigUnsigned& x);
     BigUnsigned& operator-=(const BigUnsigned& x);
     BigUnsigned& operator*=(const BigUnsigned& x);

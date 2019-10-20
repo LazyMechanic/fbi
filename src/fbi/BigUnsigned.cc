@@ -34,30 +34,80 @@ BigUnsigned::BigUnsigned(const Blk* b, Index blen) : NumberlikeArray<Blk>(b, ble
 
 BigUnsigned::~BigUnsigned() {}
 
+BigUnsigned::BigUnsigned(unsigned long long x)
+{
+    initFromPrimitive(x);
+}
+
 BigUnsigned::BigUnsigned(unsigned long x)
 {
     initFromPrimitive(x);
 }
-BigUnsigned::BigUnsigned(unsigned int x)
+
+BigUnsigned::BigUnsigned(unsigned x)
 {
     initFromPrimitive(x);
 }
+
 BigUnsigned::BigUnsigned(unsigned short x)
 {
     initFromPrimitive(x);
 }
+
+BigUnsigned::BigUnsigned(unsigned char x)
+{
+    initFromPrimitive(x);
+}
+
+BigUnsigned::BigUnsigned(long long x)
+{
+    initFromSignedPrimitive(x);
+}
+
 BigUnsigned::BigUnsigned(long x)
 {
     initFromSignedPrimitive(x);
 }
+
 BigUnsigned::BigUnsigned(int x)
 {
     initFromSignedPrimitive(x);
 }
+
 BigUnsigned::BigUnsigned(short x)
 {
     initFromSignedPrimitive(x);
 }
+
+BigUnsigned::BigUnsigned(char x)
+{
+    initFromSignedPrimitive(x);
+}
+
+// BigUnsigned::BigUnsigned(unsigned long x)
+//{
+//    initFromPrimitive(x);
+//}
+// BigUnsigned::BigUnsigned(unsigned int x)
+//{
+//    initFromPrimitive(x);
+//}
+// BigUnsigned::BigUnsigned(unsigned short x)
+//{
+//    initFromPrimitive(x);
+//}
+// BigUnsigned::BigUnsigned(long x)
+//{
+//    initFromSignedPrimitive(x);
+//}
+// BigUnsigned::BigUnsigned(int x)
+//{
+//    initFromSignedPrimitive(x);
+//}
+// BigUnsigned::BigUnsigned(short x)
+//{
+//    initFromSignedPrimitive(x);
+//}
 
 BigUnsigned::BigUnsigned(const std::string& str)
 {

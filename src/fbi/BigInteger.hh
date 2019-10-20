@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <type_traits>
 
 #include "BigUnsigned.hh"
 
@@ -52,12 +53,25 @@ public:
     BigInteger(const BigUnsigned& x);
 
     // Constructors from primitive integer types
+
+    // BigInteger(unsigned long x);
+    // BigInteger(long x);
+    // BigInteger(unsigned int x);
+    // BigInteger(int x);
+    // BigInteger(unsigned short x);
+    // BigInteger(short x);
+
+    BigInteger(unsigned long long x);
     BigInteger(unsigned long x);
-    BigInteger(long x);
     BigInteger(unsigned int x);
-    BigInteger(int x);
     BigInteger(unsigned short x);
+    BigInteger(unsigned char x);
+
+    BigInteger(long long x);
+    BigInteger(long x);
+    BigInteger(int x);
     BigInteger(short x);
+    BigInteger(char x);
 
     // Constructor from string
     BigInteger(const std::string& str);
@@ -101,6 +115,26 @@ public:
     CmpRes compareTo(const BigInteger& x) const;
 
     // Ordinary comparison operators
+    template <typename Integer>
+    bool operator==(const Integer& x) const;
+    template <typename Integer>
+    bool operator!=(const Integer& x) const;
+    template <typename Integer>
+    bool operator<(const Integer& x) const;
+    template <typename Integer>
+    bool operator<=(const Integer& x) const;
+    template <typename Integer>
+    bool operator>=(const Integer& x) const;
+    template <typename Integer>
+    bool operator>(const Integer& x) const;
+
+    bool operator==(const BigUnsigned& x) const;
+    bool operator!=(const BigUnsigned& x) const;
+    bool operator<(const BigUnsigned& x) const;
+    bool operator<=(const BigUnsigned& x) const;
+    bool operator>=(const BigUnsigned& x) const;
+    bool operator>(const BigUnsigned& x) const;
+
     bool operator==(const BigInteger& x) const;
     bool operator!=(const BigInteger& x) const;
     bool operator<(const BigInteger& x) const;
@@ -121,6 +155,23 @@ public:
     /* Bitwise operators are not provided for BigIntegers.  Use
      * getMagnitude to get the magnitude and operate on that instead. */
 
+    template <typename Integer>
+    BigInteger operator+(const Integer& x) const;
+    template <typename Integer>
+    BigInteger operator-(const Integer& x) const;
+    template <typename Integer>
+    BigInteger operator*(const Integer& x) const;
+    template <typename Integer>
+    BigInteger operator/(const Integer& x) const;
+    template <typename Integer>
+    BigInteger operator%(const Integer& x) const;
+
+    BigInteger operator+(const BigUnsigned& x) const;
+    BigInteger operator-(const BigUnsigned& x) const;
+    BigInteger operator*(const BigUnsigned& x) const;
+    BigInteger operator/(const BigUnsigned& x) const;
+    BigInteger operator%(const BigUnsigned& x) const;
+
     BigInteger operator+(const BigInteger& x) const;
     BigInteger operator-(const BigInteger& x) const;
     BigInteger operator*(const BigInteger& x) const;
@@ -129,6 +180,23 @@ public:
     BigInteger operator-() const;
 
     // OVERLOADED ASSIGNMENT OPERATORS
+    template <typename Integer>
+    BigInteger& operator+=(const Integer& x);
+    template <typename Integer>
+    BigInteger& operator-=(const Integer& x);
+    template <typename Integer>
+    BigInteger& operator*=(const Integer& x);
+    template <typename Integer>
+    BigInteger& operator/=(const Integer& x);
+    template <typename Integer>
+    BigInteger& operator%=(const Integer& x);
+
+    BigInteger& operator+=(const BigUnsigned& x);
+    BigInteger& operator-=(const BigUnsigned& x);
+    BigInteger& operator*=(const BigUnsigned& x);
+    BigInteger& operator/=(const BigUnsigned& x);
+    BigInteger& operator%=(const BigUnsigned& x);
+
     BigInteger& operator+=(const BigInteger& x);
     BigInteger& operator-=(const BigInteger& x);
     BigInteger& operator*=(const BigInteger& x);

@@ -77,3 +77,161 @@ X BigUnsigned::convertToSignedPrimitive() const
         throw "BigUnsigned::to(Primitive): "
               "Value is too big to fit in the requested type";
 }
+
+template <typename Integer>
+bool BigUnsigned::operator==(const Integer& x) const
+{
+    static_assert(std::is_arithmetic<Integer>::value, "Integer type must be arithmetic");
+    return operator==(BigUnsigned{ x });
+}
+
+template <typename Integer>
+bool BigUnsigned::operator!=(const Integer& x) const
+{
+    static_assert(std::is_arithmetic<Integer>::value, "Integer type must be arithmetic");
+    return operator!=(BigUnsigned{ x });
+}
+
+template <typename Integer>
+bool BigUnsigned::operator<(const Integer& x) const
+{
+    static_assert(std::is_arithmetic<Integer>::value, "Integer type must be arithmetic");
+    return operator<(BigUnsigned{ x });
+}
+
+template <typename Integer>
+bool BigUnsigned::operator<=(const Integer& x) const
+{
+    static_assert(std::is_arithmetic<Integer>::value, "Integer type must be arithmetic");
+    return operator<=(BigUnsigned{ x });
+}
+
+template <typename Integer>
+bool BigUnsigned::operator>=(const Integer& x) const
+{
+    static_assert(std::is_arithmetic<Integer>::value, "Integer type must be arithmetic");
+    return operator>=(BigUnsigned{ x });
+}
+
+template <typename Integer>
+bool BigUnsigned::operator>(const Integer& x) const
+{
+    static_assert(std::is_arithmetic<Integer>::value, "Integer type must be arithmetic");
+    return operator>(BigUnsigned{ x });
+}
+
+// ======================================================================================== //
+
+template <typename Integer>
+BigUnsigned BigUnsigned::operator+(const Integer& x) const
+{
+    static_assert(std::is_arithmetic<Integer>::value, "Integer type must be arithmetic");
+    return operator+(BigUnsigned{ x });
+}
+
+template <typename Integer>
+BigUnsigned BigUnsigned::operator-(const Integer& x) const
+{
+    static_assert(std::is_arithmetic<Integer>::value, "Integer type must be arithmetic");
+    return operator-(BigUnsigned{ x });
+}
+
+template <typename Integer>
+BigUnsigned BigUnsigned::operator*(const Integer& x) const
+{
+    static_assert(std::is_arithmetic<Integer>::value, "Integer type must be arithmetic");
+    return operator*(BigUnsigned{ x });
+}
+
+template <typename Integer>
+BigUnsigned BigUnsigned::operator/(const Integer& x) const
+{
+    static_assert(std::is_arithmetic<Integer>::value, "Integer type must be arithmetic");
+    return operator/(BigUnsigned{ x });
+}
+
+template <typename Integer>
+BigUnsigned BigUnsigned::operator%(const Integer& x) const
+{
+    static_assert(std::is_arithmetic<Integer>::value, "Integer type must be arithmetic");
+    return operator%(BigUnsigned{ x });
+}
+
+template <typename Integer>
+BigUnsigned BigUnsigned::operator&(const Integer& x) const
+{
+    static_assert(std::is_arithmetic<Integer>::value, "Integer type must be arithmetic");
+    return operator&(BigUnsigned{ x });
+}
+
+template <typename Integer>
+BigUnsigned BigUnsigned::operator|(const Integer& x) const
+{
+    static_assert(std::is_arithmetic<Integer>::value, "Integer type must be arithmetic");
+    return operator|(BigUnsigned{ x });
+}
+
+template <typename Integer>
+BigUnsigned BigUnsigned::operator^(const Integer& x) const
+{
+    static_assert(std::is_arithmetic<Integer>::value, "Integer type must be arithmetic");
+    return operator^(BigUnsigned{ x });
+}
+
+// ======================================================================================== //
+
+template <typename Integer>
+BigUnsigned& BigUnsigned::operator+=(const Integer& x)
+{
+    static_assert(std::is_arithmetic<Integer>::value, "Integer type must be arithmetic");
+    return operator+=(BigUnsigned{ x });
+}
+
+template <typename Integer>
+BigUnsigned& BigUnsigned::operator-=(const Integer& x)
+{
+    static_assert(std::is_arithmetic<Integer>::value, "Integer type must be arithmetic");
+    return operator-=(BigUnsigned{ x });
+}
+
+template <typename Integer>
+BigUnsigned& BigUnsigned::operator*=(const Integer& x)
+{
+    static_assert(std::is_arithmetic<Integer>::value, "Integer type must be arithmetic");
+    return operator*=(BigUnsigned{ x });
+}
+
+template <typename Integer>
+BigUnsigned& BigUnsigned::operator/=(const Integer& x)
+{
+    static_assert(std::is_arithmetic<Integer>::value, "Integer type must be arithmetic");
+    return operator/=(BigUnsigned{ x });
+}
+
+template <typename Integer>
+BigUnsigned& BigUnsigned::operator%=(const Integer& x)
+{
+    static_assert(std::is_arithmetic<Integer>::value, "Integer type must be arithmetic");
+    return operator%=(BigUnsigned{ x });
+}
+
+template <typename Integer>
+BigUnsigned& BigUnsigned::operator&=(const Integer& x)
+{
+    static_assert(std::is_arithmetic<Integer>::value, "Integer type must be arithmetic");
+    return operator&=(BigUnsigned{ x });
+}
+
+template <typename Integer>
+BigUnsigned& BigUnsigned::operator|=(const Integer& x)
+{
+    static_assert(std::is_arithmetic<Integer>::value, "Integer type must be arithmetic");
+    return operator|=(BigUnsigned{ x });
+}
+
+template <typename Integer>
+BigUnsigned& BigUnsigned::operator^=(const Integer& x)
+{
+    static_assert(std::is_arithmetic<Integer>::value, "Integer type must be arithmetic");
+    return operator^=(BigUnsigned{ x });
+}

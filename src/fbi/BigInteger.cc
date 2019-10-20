@@ -72,26 +72,6 @@ BigInteger::BigInteger(const BigUnsigned& x) : mag(x)
     sign = mag.isZero() ? zero : positive;
 }
 
-/* CONSTRUCTION FROM PRIMITIVE INTEGERS
- * Same idea as in BigUnsigned.cc, except that negative input results in a
- * negative BigInteger instead of an exception. */
-
-// Done longhand to let us use initialization.
-BigInteger::BigInteger(unsigned long x) : mag(x)
-{
-    sign = mag.isZero() ? zero : positive;
-}
-BigInteger::BigInteger(unsigned int x) : mag(x)
-{
-    sign = mag.isZero() ? zero : positive;
-}
-BigInteger::BigInteger(unsigned short x) : mag(x)
-{
-    sign = mag.isZero() ? zero : positive;
-}
-
-// For signed input, determine the desired magnitude and sign separately.
-
 namespace {
 template <class X, class UX>
 BigInteger::Blk magOf(X x)
@@ -107,9 +87,67 @@ BigInteger::Sign signOf(X x)
 }
 } // namespace
 
+/* CONSTRUCTION FROM PRIMITIVE INTEGERS
+ * Same idea as in BigUnsigned.cc, except that negative input results in a
+ * negative BigInteger instead of an exception. */
+
+// Done longhand to let us use initialization.
+
+BigInteger::BigInteger(unsigned long long x) : mag(x)
+{
+    sign = mag.isZero() ? zero : positive;
+}
+
+BigInteger::BigInteger(unsigned long x) : mag(x)
+{
+    sign = mag.isZero() ? zero : positive;
+}
+
+BigInteger::BigInteger(unsigned x) : mag(x)
+{
+    sign = mag.isZero() ? zero : positive;
+}
+
+BigInteger::BigInteger(unsigned short x) : mag(x)
+{
+    sign = mag.isZero() ? zero : positive;
+}
+
+BigInteger::BigInteger(unsigned char x) : mag(x)
+{
+    sign = mag.isZero() ? zero : positive;
+}
+
+BigInteger::BigInteger(long long x) : sign(signOf(x)), mag(magOf<long long, unsigned long long>(x)) {}
+
 BigInteger::BigInteger(long x) : sign(signOf(x)), mag(magOf<long, unsigned long>(x)) {}
+
 BigInteger::BigInteger(int x) : sign(signOf(x)), mag(magOf<int, unsigned int>(x)) {}
+
 BigInteger::BigInteger(short x) : sign(signOf(x)), mag(magOf<short, unsigned short>(x)) {}
+
+BigInteger::BigInteger(char x) : sign(signOf(x)), mag(magOf<char, unsigned char>(x)) {}
+
+// BigInteger::BigInteger(unsigned long x) : mag(x)
+//{
+//    sign = mag.isZero() ? zero : positive;
+//}
+
+// BigInteger::BigInteger(unsigned int x) : mag(x)
+//{
+//    sign = mag.isZero() ? zero : positive;
+//}
+
+// BigInteger::BigInteger(unsigned short x) : mag(x)
+//{
+//    sign = mag.isZero() ? zero : positive;
+//}
+
+// BigInteger::BigInteger(long x) : sign(signOf(x)), mag(magOf<long, unsigned long>(x)) {}
+// BigInteger::BigInteger(int x) : sign(signOf(x)), mag(magOf<int, unsigned int>(x)) {}
+// BigInteger::BigInteger(short x) : sign(signOf(x)), mag(magOf<short, unsigned short>(x)) {}
+
+// For signed input, determine the desired magnitude and sign separately.
 
 BigInteger::BigInteger(const std::string& str) : BigInteger(stringToBigInteger(str)) {}
 
@@ -198,6 +236,36 @@ BigInteger::CmpRes BigInteger::compareTo(const BigInteger& x) const
             default:
                 throw "BigInteger internal error";
         }
+}
+
+bool BigInteger::operator==(const BigUnsigned& x) const
+{
+    return operator==(BigInteger{ x });
+}
+
+bool BigInteger::operator!=(const BigUnsigned& x) const
+{
+    return operator!=(BigInteger{ x });
+}
+
+bool BigInteger::operator<(const BigUnsigned& x) const
+{
+    return operator<(BigInteger{ x });
+}
+
+bool BigInteger::operator<=(const BigUnsigned& x) const
+{
+    return operator<=(BigInteger{ x });
+}
+
+bool BigInteger::operator>=(const BigUnsigned& x) const
+{
+    return operator>=(BigInteger{ x });
+}
+
+bool BigInteger::operator>(const BigUnsigned& x) const
+{
+    return operator>(BigInteger{ x });
 }
 
 bool BigInteger::operator==(const BigInteger& x) const
@@ -462,6 +530,31 @@ void BigInteger::negate(const BigInteger& a)
  * this and x.  The new object is then returned.
  */
 
+BigInteger BigInteger::operator+(const BigUnsigned& x) const
+{
+    return operator+(BigInteger{ x });
+}
+
+BigInteger BigInteger::operator-(const BigUnsigned& x) const
+{
+    return operator-(BigInteger{ x });
+}
+
+BigInteger BigInteger::operator*(const BigUnsigned& x) const
+{
+    return operator*(BigInteger{ x });
+}
+
+BigInteger BigInteger::operator/(const BigUnsigned& x) const
+{
+    return operator/(BigInteger{ x });
+}
+
+BigInteger BigInteger::operator%(const BigUnsigned& x) const
+{
+    return operator%(BigInteger{ x });
+}
+
 BigInteger BigInteger::operator+(const BigInteger& x) const
 {
     BigInteger ans;
@@ -517,6 +610,31 @@ BigInteger BigInteger::operator-() const
  * belongs to the put-here operations.  See Assignment Operators in
  * BigUnsigned.hh.
  */
+
+BigInteger& BigInteger::operator+=(const BigUnsigned& x)
+{
+    return operator+=(BigInteger{ x });
+}
+
+BigInteger& BigInteger::operator-=(const BigUnsigned& x)
+{
+    return operator-=(BigInteger{ x });
+}
+
+BigInteger& BigInteger::operator*=(const BigUnsigned& x)
+{
+    return operator*=(BigInteger{ x });
+}
+
+BigInteger& BigInteger::operator/=(const BigUnsigned& x)
+{
+    return operator/=(BigInteger{ x });
+}
+
+BigInteger& BigInteger::operator%=(const BigUnsigned& x)
+{
+    return operator%=(BigInteger{ x });
+}
 
 BigInteger& BigInteger::operator+=(const BigInteger& x)
 {
