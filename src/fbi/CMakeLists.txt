@@ -23,6 +23,7 @@ set(
     "BigInteger.inl"
     "BigIntegerAlgorithms.hh"
     "BigIntegerUtils.hh"
+    "BigIntegerUtils.inl"
     "BigUnsigned.hh"
     "BigUnsigned.inl"
     "BigUnsignedInABase.hh"
