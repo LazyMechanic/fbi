@@ -25,8 +25,10 @@ BigInteger::BigInteger(const Blk* b, Index blen, Sign s) : mag(b, blen)
     switch (s) {
         case zero:
             if (!mag.isZero())
-                throw "BigInteger::BigInteger(const Blk *, Index, Sign): Cannot use a sign of zero with a nonzero "
-                      "magnitude";
+                throw std::runtime_error{
+                    "BigInteger::BigInteger(const Blk *, Index, Sign): Cannot use a sign of zero with a nonzero "
+                    "magnitude"
+                };
             sign = zero;
             break;
         case positive:
@@ -37,7 +39,7 @@ BigInteger::BigInteger(const Blk* b, Index blen, Sign s) : mag(b, blen)
         default:
             /* g++ seems to be optimizing out this case on the assumption
              * that the sign is a valid member of the enumeration.  Oh well. */
-            throw "BigInteger::BigInteger(const Blk *, Index, Sign): Invalid sign";
+            throw std::runtime_error{ "BigInteger::BigInteger(const Blk *, Index, Sign): Invalid sign" };
     }
 }
 
@@ -51,8 +53,10 @@ BigInteger::BigInteger(const BigUnsigned& x, Sign s) : mag(x)
     switch (s) {
         case zero:
             if (!mag.isZero())
-                throw "BigInteger::BigInteger(const BigUnsigned &, Sign): Cannot use a sign of zero with a nonzero "
-                      "magnitude";
+                throw std::runtime_error{
+                    "BigInteger::BigInteger(const BigUnsigned &, Sign): Cannot use a sign of zero with a nonzero "
+                    "magnitude"
+                };
             sign = zero;
             break;
         case positive:
@@ -63,7 +67,7 @@ BigInteger::BigInteger(const BigUnsigned& x, Sign s) : mag(x)
         default:
             /* g++ seems to be optimizing out this case on the assumption
              * that the sign is a valid member of the enumeration.  Oh well. */
-            throw "BigInteger::BigInteger(const BigUnsigned &, Sign): Invalid sign";
+            throw std::runtime_error{ "BigInteger::BigInteger(const BigUnsigned &, Sign): Invalid sign" };
     }
 }
 
@@ -234,7 +238,7 @@ BigInteger::CmpRes BigInteger::compareTo(const BigInteger& x) const
                 // Compare the magnitudes, but return the opposite result
                 return CmpRes(-mag.compareTo(x.mag));
             default:
-                throw "BigInteger internal error";
+                throw std::runtime_error{ "BigInteger internal error" };
         }
 }
 
@@ -434,7 +438,9 @@ void BigInteger::divideWithRemainder(const BigInteger& b, BigInteger& q)
     // Defend against aliased calls;
     // same idea as in BigUnsigned::divideWithRemainder .
     if (this == &q)
-        throw "BigInteger::divideWithRemainder: Cannot write quotient and remainder into the same variable";
+        throw std::runtime_error{
+            "BigInteger::divideWithRemainder: Cannot write quotient and remainder into the same variable"
+        };
     if (this == &b || &q == &b) {
         BigInteger tmpB(b);
         divideWithRemainder(tmpB, q);
@@ -579,7 +585,7 @@ BigInteger BigInteger::operator*(const BigInteger& x) const
 BigInteger BigInteger::operator/(const BigInteger& x) const
 {
     if (x.isZero())
-        throw "BigInteger::operator /: division by zero";
+        throw std::runtime_error{ "BigInteger::operator /: division by zero" };
     BigInteger q, r;
     r = *this;
     r.divideWithRemainder(x, q);
@@ -657,7 +663,7 @@ BigInteger& BigInteger::operator*=(const BigInteger& x)
 BigInteger& BigInteger::operator/=(const BigInteger& x)
 {
     if (x.isZero())
-        throw "BigInteger::operator /=: division by zero";
+        throw std::runtime_error{ "BigInteger::operator /=: division by zero" };
     /* The following technique is slightly faster than copying *this first
      * when x is large. */
     BigInteger q;
@@ -670,7 +676,7 @@ BigInteger& BigInteger::operator/=(const BigInteger& x)
 BigInteger& BigInteger::operator%=(const BigInteger& x)
 {
     if (x.isZero())
-        throw "BigInteger::operator %=: division by zero";
+        throw std::runtime_error{ "BigInteger::operator %=: division by zero" };
     BigInteger q;
     // Mods *this by x.  Don't care about quotient left in q.
     divideWithRemainder(x, q);

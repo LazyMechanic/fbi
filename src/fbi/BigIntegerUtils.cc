@@ -1,5 +1,7 @@
 #include "BigIntegerUtils.hh"
 
+#include <stdexcept>
+
 #include "BigUnsignedInABase.hh"
 
 namespace fbi {
@@ -44,7 +46,9 @@ std::ostream& operator<<(std::ostream& os, const BigUnsigned& x)
             os << '0';
     }
     else
-        throw "std::ostream << BigUnsigned: Could not determine the desired base from output-stream flags";
+        throw std::runtime_error{
+            "std::ostream << BigUnsigned: Could not determine the desired base from output-stream flags"
+        };
     std::string s = std::string(BigUnsignedInABase(x, base));
     os << s;
     return os;

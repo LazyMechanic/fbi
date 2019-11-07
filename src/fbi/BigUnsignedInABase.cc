@@ -1,5 +1,7 @@
 #include "BigUnsignedInABase.hh"
 
+#include <stdexcept>
+
 namespace fbi {
 BigUnsignedInABase::BigUnsignedInABase(int, Index c) : NumberlikeArray<Digit>(0, c) {}
 
@@ -27,13 +29,17 @@ BigUnsignedInABase::BigUnsignedInABase(const Digit* d, Index l, Base base) : Num
 {
     // Check the base
     if (base < 2)
-        throw "BigUnsignedInABase::BigUnsignedInABase(const Digit *, Index, Base): The base must be at least 2";
+        throw std::runtime_error{
+            "BigUnsignedInABase::BigUnsignedInABase(const Digit *, Index, Base): The base must be at least 2"
+        };
 
     // Validate the digits.
     for (Index i = 0; i < l; i++)
         if (blk[i] >= base)
-            throw "BigUnsignedInABase::BigUnsignedInABase(const Digit *, Index, Base): A digit is too large for the "
-                  "specified base";
+            throw std::runtime_error{
+                "BigUnsignedInABase::BigUnsignedInABase(const Digit *, Index, Base): A digit is too large for the "
+                "specified base"
+            };
 
     // Eliminate any leading zeros we may have been passed.
     zapLeadingZeros();
@@ -59,7 +65,7 @@ BigUnsignedInABase::BigUnsignedInABase(const BigUnsigned& x, Base base)
 {
     // Check the base
     if (base < 2)
-        throw "BigUnsignedInABase(BigUnsigned, Base): The base must be at least 2";
+        throw std::runtime_error{ "BigUnsignedInABase(BigUnsigned, Base): The base must be at least 2" };
     this->base = base;
 
     // Get an upper bound on how much space we need
@@ -102,9 +108,11 @@ BigUnsignedInABase::BigUnsignedInABase(const std::string& s, Base base)
 {
     // Check the base.
     if (base > 36)
-        throw "BigUnsignedInABase(std::string, Base): The default string conversion routines use the symbol set 0-9, "
-              "A-Z and therefore support only up to base 36.  You tried a conversion with a base over 36; write your "
-              "own string conversion routine.";
+        throw std::runtime_error{
+            "BigUnsignedInABase(std::string, Base): The default string conversion routines use the symbol set 0-9, "
+            "A-Z and therefore support only up to base 36.  You tried a conversion with a base over 36; write your "
+            "own string conversion routine."
+        };
     // Save the base.
     // This pattern is seldom seen in C++, but the analogous ``this.'' is common in Java.
     this->base = base;
@@ -125,11 +133,15 @@ BigUnsignedInABase::BigUnsignedInABase(const std::string& s, Base base)
         else if (theSymbol >= 'a' && theSymbol <= 'z')
             blk[digitNum] = theSymbol - 'a' + 10;
         else
-            throw "BigUnsignedInABase(std::string, Base): Bad symbol in input.  Only 0-9, A-Z, a-z are accepted.";
+            throw std::runtime_error{
+                "BigUnsignedInABase(std::string, Base): Bad symbol in input.  Only 0-9, A-Z, a-z are accepted."
+            };
 
         if (blk[digitNum] >= base)
-            throw "BigUnsignedInABase::BigUnsignedInABase(const Digit *, Index, Base): A digit is too large for the "
-                  "specified base";
+            throw std::runtime_error{
+                "BigUnsignedInABase::BigUnsignedInABase(const Digit *, Index, Base): A digit is too large for the "
+                "specified base"
+            };
     }
     zapLeadingZeros();
 }
@@ -162,9 +174,11 @@ bool BigUnsignedInABase::operator!=(const BigUnsignedInABase& x) const
 BigUnsignedInABase::operator std::string() const
 {
     if (base > 36)
-        throw "BigUnsignedInABase ==> std::string: The default string conversion routines use the symbol set 0-9, A-Z "
-              "and therefore support only up to base 36.  You tried a conversion with a base over 36; write your own "
-              "string conversion routine.";
+        throw std::runtime_error{
+            "BigUnsignedInABase ==> std::string: The default string conversion routines use the symbol set 0-9, A-Z "
+            "and therefore support only up to base 36.  You tried a conversion with a base over 36; write your own "
+            "string conversion routine."
+        };
     if (len == 0)
         return std::string("0");
     // Some compilers don't have push_back, so use a char * buffer instead.

@@ -38,4 +38,3 @@ BigInteger dataToBigInteger(const T* data, BigInteger::Index length, BigInteger:
     delete[] blocks;
     return x;
 }
-

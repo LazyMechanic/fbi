@@ -1,7 +1,8 @@
 #pragma once
 
-#include <string>
 #include <cstdint>
+#include <stdexcept>
+#include <string>
 
 #include "NumberlikeArray.hh"
 
@@ -49,12 +50,12 @@ public:
 
     // Constructors from primitive integer types
 
-    //BigUnsigned(unsigned long x);
-    //BigUnsigned(long x);
-    //BigUnsigned(unsigned int x);
-    //BigUnsigned(int x);
-    //BigUnsigned(unsigned short x);
-    //BigUnsigned(short x);
+    // BigUnsigned(unsigned long x);
+    // BigUnsigned(long x);
+    // BigUnsigned(unsigned int x);
+    // BigUnsigned(int x);
+    // BigUnsigned(unsigned short x);
+    // BigUnsigned(short x);
 
     BigUnsigned(unsigned long long x);
     BigUnsigned(unsigned long x);

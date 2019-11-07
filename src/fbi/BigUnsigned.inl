@@ -33,8 +33,8 @@ template <class X>
 void BigUnsigned::initFromSignedPrimitive(X x)
 {
     if (x < 0)
-        throw "BigUnsigned constructor: "
-              "Cannot construct a BigUnsigned from a negative number";
+        throw std::runtime_error{ "BigUnsigned constructor: "
+                                  "Cannot construct a BigUnsigned from a negative number" };
     else
         initFromPrimitive(x);
 }
@@ -59,8 +59,8 @@ X BigUnsigned::convertToPrimitive() const
             return x;
         // Otherwise fall through.
     }
-    throw "BigUnsigned::to<Primitive>: "
-          "Value is too big to fit in the requested type";
+    throw std::runtime_error{ "BigUnsigned::to<Primitive>: "
+                              "Value is too big to fit in the requested type" };
 }
 
 /* Wrap the above in an x >= 0 test to make sure we got a nonnegative result,
@@ -74,8 +74,8 @@ X BigUnsigned::convertToSignedPrimitive() const
     if (x >= 0)
         return x;
     else
-        throw "BigUnsigned::to(Primitive): "
-              "Value is too big to fit in the requested type";
+        throw std::runtime_error{ "BigUnsigned::to(Primitive): "
+                                  "Value is too big to fit in the requested type" };
 }
 
 template <typename Integer>

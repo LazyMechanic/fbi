@@ -367,8 +367,8 @@ void BigUnsigned::subtract(const BigUnsigned& a, const BigUnsigned& b)
     }
     else if (a.len < b.len)
         // If a is shorter than b, the result is negative.
-        throw "BigUnsigned::subtract: "
-              "Negative result in unsigned calculation";
+        throw std::runtime_error{ "BigUnsigned::subtract: "
+                                  "Negative result in unsigned calculation" };
     // Some variables...
     bool borrowIn, borrowOut;
     Blk temp;
@@ -401,7 +401,7 @@ void BigUnsigned::subtract(const BigUnsigned& a, const BigUnsigned& b)
      * predictable state. */
     if (borrowIn) {
         len = 0;
-        throw "BigUnsigned::subtract: Negative result in unsigned calculation";
+        throw std::runtime_error{ "BigUnsigned::subtract: Negative result in unsigned calculation" };
     }
     else
         // Copy over the rest of the blocks
@@ -567,7 +567,9 @@ void BigUnsigned::divideWithRemainder(const BigUnsigned& b, BigUnsigned& q)
      * It would be silly to try to write quotient and remainder to the
      * same variable.  Rule that out right away. */
     if (this == &q)
-        throw "BigUnsigned::divideWithRemainder: Cannot write quotient and remainder into the same variable";
+        throw std::runtime_error{
+            "BigUnsigned::divideWithRemainder: Cannot write quotient and remainder into the same variable"
+        };
     /* Now *this and q are separate, so the only concern is that b might be
      * aliased to one of them.  If so, use a temporary copy of b. */
     if (this == &b || &q == &b) {
@@ -783,8 +785,8 @@ void BigUnsigned::bitShiftLeft(const BigUnsigned& a, int b)
     DTRT_ALIASED(this == &a, bitShiftLeft(a, b));
     if (b < 0) {
         if (b << 1 == 0)
-            throw "BigUnsigned::bitShiftLeft: "
-                  "Pathological shift amount not implemented";
+            throw std::runtime_error{ "BigUnsigned::bitShiftLeft: "
+                                      "Pathological shift amount not implemented" };
         else {
             bitShiftRight(a, -b);
             return;
@@ -810,8 +812,8 @@ void BigUnsigned::bitShiftRight(const BigUnsigned& a, int b)
     DTRT_ALIASED(this == &a, bitShiftRight(a, b));
     if (b < 0) {
         if (b << 1 == 0)
-            throw "BigUnsigned::bitShiftRight: "
-                  "Pathological shift amount not implemented";
+            throw std::runtime_error{ "BigUnsigned::bitShiftRight: "
+                                      "Pathological shift amount not implemented" };
         else {
             bitShiftLeft(a, -b);
             return;
@@ -869,7 +871,7 @@ BigUnsigned BigUnsigned::operator*(const BigUnsigned& x) const
 BigUnsigned BigUnsigned::operator/(const BigUnsigned& x) const
 {
     if (x.isZero())
-        throw "BigUnsigned::operator /: division by zero";
+        throw std::runtime_error{ "BigUnsigned::operator /: division by zero" };
     BigUnsigned q, r;
     r = *this;
     r.divideWithRemainder(x, q);
@@ -879,7 +881,7 @@ BigUnsigned BigUnsigned::operator/(const BigUnsigned& x) const
 BigUnsigned BigUnsigned::operator%(const BigUnsigned& x) const
 {
     if (x.isZero())
-        throw "BigUnsigned::operator %: division by zero";
+        throw std::runtime_error{ "BigUnsigned::operator %: division by zero" };
     BigUnsigned q, r;
     r = *this;
     r.divideWithRemainder(x, q);
@@ -942,7 +944,7 @@ BigUnsigned& BigUnsigned::operator*=(const BigUnsigned& x)
 BigUnsigned& BigUnsigned::operator/=(const BigUnsigned& x)
 {
     if (x.isZero())
-        throw "BigUnsigned::operator /=: division by zero";
+        throw std::runtime_error{ "BigUnsigned::operator /=: division by zero" };
     /* The following technique is slightly faster than copying *this first
      * when x is large. */
     BigUnsigned q;
@@ -956,7 +958,7 @@ BigUnsigned& BigUnsigned::operator/=(const BigUnsigned& x)
 BigUnsigned& BigUnsigned::operator%=(const BigUnsigned& x)
 {
     if (x.isZero())
-        throw "BigUnsigned::operator %=: division by zero";
+        throw std::runtime_error{ "BigUnsigned::operator %=: division by zero" };
     BigUnsigned q;
     // Mods *this by x.  Don't care about quotient left in q.
     divideWithRemainder(x, q);
@@ -1028,7 +1030,7 @@ BigUnsigned BigUnsigned::operator++(int)
 BigUnsigned& BigUnsigned::operator--()
 {
     if (len == 0)
-        throw "BigUnsigned::operator --(): Cannot decrement an unsigned zero";
+        throw std::runtime_error{ "BigUnsigned::operator --(): Cannot decrement an unsigned zero" };
     Index i;
     bool borrow = true;
     for (i = 0; borrow; i++) {

@@ -1,5 +1,7 @@
 #include "BigIntegerAlgorithms.hh"
 
+#include <stdexcept>
+
 namespace fbi {
 BigUnsigned gcd(BigUnsigned a, BigUnsigned b)
 {
@@ -18,7 +20,7 @@ BigUnsigned gcd(BigUnsigned a, BigUnsigned b)
 void extendedEuclidean(BigInteger m, BigInteger n, BigInteger& g, BigInteger& r, BigInteger& s)
 {
     if (&g == &r || &g == &s || &r == &s)
-        throw "BigInteger extendedEuclidean: Outputs are aliased";
+        throw std::runtime_error{ "BigInteger extendedEuclidean: Outputs are aliased" };
     BigInteger r1(1), s1(0), r2(0), s2(1), q;
     /* Invariants:
      * r1*m(orig) + s1*n(orig) == m(current)
@@ -56,7 +58,7 @@ BigUnsigned modinv(const BigInteger& x, const BigUnsigned& n)
         // r*x + s*n == 1, so r*x === 1 (mod n), so r is the answer.
         return (r % n).getMagnitude(); // (r % n) will be nonnegative
     else
-        throw "BigInteger modinv: x and n have a common factor";
+        throw std::runtime_error{ "BigInteger modinv: x and n have a common factor" };
 }
 
 BigUnsigned modexp(const BigInteger& base, const BigUnsigned& exponent, const BigUnsigned& modulus)

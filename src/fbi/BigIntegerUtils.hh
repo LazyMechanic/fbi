@@ -1,8 +1,8 @@
 #pragma once
 
+#include <bitset>
 #include <iostream>
 #include <string>
-#include <bitset>
 
 #include "BigInteger.hh"
 
