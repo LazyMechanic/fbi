@@ -1,3 +1,4 @@
+- [Dependencies](#dependencies)
 - [Description](#description)
 - [Build & install](#build--install)
   - [Getting sources](#getting-sources)
@@ -12,6 +13,9 @@
   - [Compiling programs that use the library](#compiling-programs-that-use-the-library)
   - [Resources](#resources)
   - [Bugs and enhancements](#bugs-and-enhancements)
+
+# Dependencies
+- [Google test](https://github.com/google/googletest) -- if you need run tests (optional)
 
 # Description
 FBI - Fu*king Big Integer
@@ -53,6 +57,9 @@ $ cmake                                \
 
 ## CMake options
 ```bash
+# Google test directory
+-DGTest_DIR=path
+
 # Build library tests. OFF by default
 -Dfbi_BUILD_TEST=[OFF|ON]
 
@@ -62,10 +69,10 @@ $ cmake                                \
 # Installation directory for CMake files. "lib/cmake/fbi" by default
 -Dfbi_INSTALL_CMAKE_PREFIX=prefix/path
 
-# Installation directory for CMake files. "include/fbi" by default
+# Installation directory for include files. "include/fbi" by default
 -Dfbi_INSTALL_INCLUDE_PREFIX=prefix/path
 
-# Installation directory for CMake files. "bin" by default
+# Installation directory for binary files. "bin" by default
 -Dfbi_INSTALL_BIN_PREFIX=prefix/path
 
 # Installation directory for libraries. "lib" by default
