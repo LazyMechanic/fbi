@@ -48,6 +48,10 @@ DerivePointerAlignment: 'true'
 FixNamespaceComments: 'true'
 IncludeBlocks: Regroup
 IncludeCategories:
+      - Regex:           '^[<"]fbi/*'
+        Priority:        52
+      - Regex:           '^[<"]gtest/*'
+        Priority:        51
       - Regex:           '^"'
         Priority:        50
       - Regex:           '^<[^/]*>$'
@@ -83,5 +87,4 @@ SpacesInSquareBrackets: 'false'
 Standard: Auto
 TabWidth: '4'
 UseTab: Never
-
 ...
