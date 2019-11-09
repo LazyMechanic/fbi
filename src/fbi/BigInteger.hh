@@ -55,13 +55,6 @@ public:
 
     // Constructors from primitive integer types
 
-    // BigInteger(unsigned long x);
-    // BigInteger(long x);
-    // BigInteger(unsigned int x);
-    // BigInteger(int x);
-    // BigInteger(unsigned short x);
-    // BigInteger(short x);
-
     BigInteger(unsigned long long x);
     BigInteger(unsigned long x);
     BigInteger(unsigned int x);
