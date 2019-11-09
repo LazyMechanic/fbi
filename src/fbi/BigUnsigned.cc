@@ -84,34 +84,14 @@ BigUnsigned::BigUnsigned(char x)
     initFromSignedPrimitive(x);
 }
 
-// BigUnsigned::BigUnsigned(unsigned long x)
-//{
-//    initFromPrimitive(x);
-//}
-// BigUnsigned::BigUnsigned(unsigned int x)
-//{
-//    initFromPrimitive(x);
-//}
-// BigUnsigned::BigUnsigned(unsigned short x)
-//{
-//    initFromPrimitive(x);
-//}
-// BigUnsigned::BigUnsigned(long x)
-//{
-//    initFromSignedPrimitive(x);
-//}
-// BigUnsigned::BigUnsigned(int x)
-//{
-//    initFromSignedPrimitive(x);
-//}
-// BigUnsigned::BigUnsigned(short x)
-//{
-//    initFromSignedPrimitive(x);
-//}
-
 BigUnsigned::BigUnsigned(const std::string& str)
 {
     *this = stringToBigUnsigned(str);
+}
+
+unsigned long long BigUnsigned::toUnsignedLongLong() const
+{
+    return convertToPrimitive<unsigned long long>();
 }
 
 unsigned long BigUnsigned::toUnsignedLong() const
@@ -126,6 +106,17 @@ unsigned short BigUnsigned::toUnsignedShort() const
 {
     return convertToPrimitive<unsigned short>();
 }
+
+unsigned char BigUnsigned::toUnsignedChar() const
+{
+    return convertToPrimitive<unsigned char>();
+}
+
+long long BigUnsigned::toLongLong() const
+{
+    return convertToSignedPrimitive<long long>();
+}
+
 long BigUnsigned::toLong() const
 {
     return convertToSignedPrimitive<long>();
@@ -137,6 +128,11 @@ int BigUnsigned::toInt() const
 short BigUnsigned::toShort() const
 {
     return convertToSignedPrimitive<short>();
+}
+
+char BigUnsigned::toChar() const
+{
+    return convertToSignedPrimitive<char>();
 }
 
 std::string BigUnsigned::toString() const

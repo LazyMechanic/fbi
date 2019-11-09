@@ -83,12 +83,17 @@ public:
     /* Converters to primitive integer types
      * The implicit conversion operators caused trouble, so these are now
      * named. */
+    unsigned long long toUnsignedLongLong() const;
     unsigned long toUnsignedLong() const;
-    long toLong() const;
     unsigned int toUnsignedInt() const;
-    int toInt() const;
     unsigned short toUnsignedShort() const;
+    unsigned char toUnsignedChar() const;
+
+    long long toLongLong() const;
+    long toLong() const;
+    int toInt() const;
     short toShort() const;
+    char toChar() const;
 
     // Convert to string
     std::string toString() const;

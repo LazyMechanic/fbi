@@ -132,52 +132,58 @@ BigInteger::BigInteger(short x) : sign(signOf(x)), mag(magOf<short, unsigned sho
 
 BigInteger::BigInteger(char x) : sign(signOf(x)), mag(magOf<char, unsigned char>(x)) {}
 
-// BigInteger::BigInteger(unsigned long x) : mag(x)
-//{
-//    sign = mag.isZero() ? zero : positive;
-//}
-
-// BigInteger::BigInteger(unsigned int x) : mag(x)
-//{
-//    sign = mag.isZero() ? zero : positive;
-//}
-
-// BigInteger::BigInteger(unsigned short x) : mag(x)
-//{
-//    sign = mag.isZero() ? zero : positive;
-//}
-
-// BigInteger::BigInteger(long x) : sign(signOf(x)), mag(magOf<long, unsigned long>(x)) {}
-// BigInteger::BigInteger(int x) : sign(signOf(x)), mag(magOf<int, unsigned int>(x)) {}
-// BigInteger::BigInteger(short x) : sign(signOf(x)), mag(magOf<short, unsigned short>(x)) {}
-
 // For signed input, determine the desired magnitude and sign separately.
 
 BigInteger::BigInteger(const std::string& str) : BigInteger(stringToBigInteger(str)) {}
+
+unsigned long long BigInteger::toUnsignedLongLong() const
+{
+    return convertToUnsignedPrimitive<unsigned long long>();
+}
 
 unsigned long BigInteger::toUnsignedLong() const
 {
     return convertToUnsignedPrimitive<unsigned long>();
 }
+
 unsigned int BigInteger::toUnsignedInt() const
 {
     return convertToUnsignedPrimitive<unsigned int>();
 }
+
 unsigned short BigInteger::toUnsignedShort() const
 {
     return convertToUnsignedPrimitive<unsigned short>();
 }
+
+unsigned char BigInteger::toUnsignedChar() const
+{
+    return convertToUnsignedPrimitive<unsigned char>();
+}
+
+long long BigInteger::toLongLong() const
+{
+    return convertToSignedPrimitive<long long, unsigned long long>();
+}
+
 long BigInteger::toLong() const
 {
     return convertToSignedPrimitive<long, unsigned long>();
 }
+
 int BigInteger::toInt() const
 {
     return convertToSignedPrimitive<int, unsigned int>();
 }
+
 short BigInteger::toShort() const
 {
     return convertToSignedPrimitive<short, unsigned short>();
+}
+
+char BigInteger::toChar() const
+{
+    return convertToSignedPrimitive<char, unsigned char>();
 }
 
 std::string BigInteger::toString() const
