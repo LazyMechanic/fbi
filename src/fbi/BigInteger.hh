@@ -1,10 +1,11 @@
 #pragma once
 
-#include <string>
 #include <stdexcept>
+#include <string>
 #include <type_traits>
 
 #include "BigUnsigned.hh"
+#include "Exception.hh"
 
 namespace fbi {
 /* A BigInteger object represents a signed integer of size limited only by

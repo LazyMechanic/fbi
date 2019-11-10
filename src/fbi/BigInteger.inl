@@ -14,8 +14,8 @@ template <class X>
 X BigInteger::convertToUnsignedPrimitive() const
 {
     if (sign == negative)
-        throw std::runtime_error{ "BigInteger::to<Primitive>: "
-                                  "Cannot convert a negative integer to an unsigned type" };
+        throw SignError{ "BigInteger::convertToUnsignedPrimitive",
+                         "Cannot convert a negative integer to an unsigned type" };
     else
         return convertBigUnsignedToPrimitiveAccess<X>(mag);
 }
@@ -44,8 +44,7 @@ X BigInteger::convertToSignedPrimitive() const
         }
         // Otherwise fall through.
     }
-    throw std::runtime_error{ "BigInteger::to<Primitive>: "
-                              "Value is too big to fit in the requested type" };
+    throw MathError{ "BigInteger::convertToSignedPrimitive", "Value is too big to fit in the requested type" };
 }
 
 template <typename Integer>

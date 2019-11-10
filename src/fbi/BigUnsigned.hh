@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <string>
 
+#include "Exception.hh"
 #include "NumberlikeArray.hh"
 
 namespace fbi {

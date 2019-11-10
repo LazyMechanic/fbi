@@ -28,7 +28,8 @@ set(
     "BigUnsigned.inl"
     "BigUnsignedInABase.hh"
     "NumberlikeArray.hh"
-    "NumberlikeArray.inl")
+    "NumberlikeArray.inl"
+    "Exception.hh")
 
 set( 
     ${SUBPROJ_NAME}_SOURCES
@@ -36,7 +37,8 @@ set(
     "BigIntegerAlgorithms.cc"
     "BigIntegerUtils.cc"
     "BigUnsigned.cc"
-    "BigUnsignedInABase.cc")
+    "BigUnsignedInABase.cc"
+    "Exception.cc")
 
 set(
     ${SUBPROJ_NAME}_ALL_SRCS
