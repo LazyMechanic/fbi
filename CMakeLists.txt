@@ -44,6 +44,7 @@ set(PROJECT_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_subdirectory(src/fbi)
 
+enable_testing()
 if (${fbi_BUILD_TEST})
     add_subdirectory(test)
 endif()

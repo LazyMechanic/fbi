@@ -1,15 +1,15 @@
 find_package(GTest CONFIG REQUIRED)
 
-add_executable(test 
+add_executable(fbiTests 
     "test.cc"
     "BigUnsignedTests.hh")
 
 target_link_libraries(
-    test
+    fbiTests
     fbi
     GTest::gtest
     GTest::gtest_main)
 
 add_test(
     NAME fbiRunTest
-    COMMAND test)
+    COMMAND fbiTests)
