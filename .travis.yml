@@ -1,0 +1,105 @@
+language: cpp
+
+matrix:
+  fast_finish: true
+  include:
+    ###### Linux
+    ### GCC
+    - os: linux
+      compiler: gcc
+      env: BUILD_TYPE=Release
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-9
+            - gcc-9
+    - os: linux
+      compiler: gcc
+      env: BUILD_TYPE=Release
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-8
+            - gcc-8
+    - os: linux
+      compiler: gcc
+      env: BUILD_TYPE=Release
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+            - gcc-7
+    ### Clang
+    - os: linux
+      compiler: clang
+      env: BUILD_TYPE=Release
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-8
+          packages:
+            - clang-8
+      before_script:
+        - sudo ln -s /usr/local/clang-7.0.0/bin/* /usr/local/bin
+    - os: linux
+      compiler: clang
+      env: BUILD_TYPE=Release
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-7
+          packages:
+            - clang-7
+      before_script:
+        - sudo ln -s /usr/local/clang-7.0.0/bin/* /usr/local/bin
+
+script:
+  # Get newest cmake
+  - CMAKE_DIR="/opt/cmake"
+  - CMAKE="$CMAKE_DIR/bin/cmake"
+  - CTEST="$CMAKE_DIR/bin/ctest"
+
+  - sudo wget "https://github.com/Kitware/CMake/releases/download/v3.16.0-rc3/cmake-3.16.0-rc3-Linux-x86_64.tar.gz"
+  - sudo tar -xzf cmake-3.16.0-rc3-Linux-x86_64.tar.gz
+  - sudo mv cmake-3.16.0-rc3-Linux-x86_64 "$CMAKE_DIR"
+
+  # Download googletest
+  - sudo wget https://github.com/google/googletest/archive/release-1.10.0.tar.gz
+  - sudo tar -xzf release-1.10.0.tar.gz
+
+  - GTEST_DIR="$(pwd)/googletest-release-1.10.0"
+
+  - # Compile googletest
+  - cd "$GTEST_DIR"
+  - sudo mkdir build 
+  - cd build
+
+  - sudo $CMAKE .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX="$GTEST_DIR/install"
+
+  - sudo $CMAKE --build .
+  - sudo $CMAKE --install .
+
+  # Compile target
+  - cd "$TRAVIS_BUILD_DIR"
+  - sudo mkdir build
+  - cd build
+  - sudo $CMAKE .. -Dfbi_BUILD_TESTS=ON -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DGTest_DIR="$GTEST_DIR/install/lib/cmake/GTest"
+  - sudo $CMAKE --build .
+
+  # Testing
+  - sudo $CTEST --verbose
+
+notifications:
+  email:
+    recipients:
+      - asharnrus.info@gmail.com
+    on_success: never
+    on_failure: always

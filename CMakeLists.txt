@@ -11,7 +11,7 @@ project(fbi LANGUAGES CXX VERSION "${_PROJECT_VERSION}")
 # ############################################################### #
 # fbi options ################################################### #
 # ############################################################### #
-option(fbi_BUILD_TEST "Build library tests." OFF)
+option(fbi_BUILD_TESTS "Build library tests." OFF)
 option(fbi_BUILD_SHARED "Build the library as shared." OFF)
 set(
     fbi_INSTALL_CMAKE_PREFIX 
@@ -44,7 +44,7 @@ set(PROJECT_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_subdirectory(src/fbi)
 
-enable_testing()
-if (${fbi_BUILD_TEST})
+if (${fbi_BUILD_TESTS})
+    enable_testing()
     add_subdirectory(test)
 endif()
