@@ -1,3 +1,4 @@
+- [Build matrix](#build-matrix)
 - [Dependencies](#dependencies)
 - [Description](#description)
 - [Build & install](#build--install)
@@ -13,6 +14,20 @@
   - [Compiling programs that use the library](#compiling-programs-that-use-the-library)
   - [Resources](#resources)
   - [Bugs and enhancements](#bugs-and-enhancements)
+
+# Build matrix
+| Platform | Compiler  | Build status                                                                                                                                             |
+|----------|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Linux    | gcc-9     | [![Build Status](https://travis-matrix-badges.herokuapp.com/repos/LazyMechanic/fbi/branches/master/1)](https://travis-ci.org/LazyMechanic/fbi)           |
+| Linux    | gcc-8     | [![Build Status](https://travis-matrix-badges.herokuapp.com/repos/LazyMechanic/fbi/branches/master/2)](https://travis-ci.org/LazyMechanic/fbi)           |
+| Linux    | gcc-7     | [![Build Status](https://travis-matrix-badges.herokuapp.com/repos/LazyMechanic/fbi/branches/master/3)](https://travis-ci.org/LazyMechanic/fbi)           |
+| Linux    | clang-8   | [![Build Status](https://travis-matrix-badges.herokuapp.com/repos/LazyMechanic/fbi/branches/master/4)](https://travis-ci.org/LazyMechanic/fbi)           |
+| Linux    | clang-7   | [![Build Status](https://travis-matrix-badges.herokuapp.com/repos/LazyMechanic/fbi/branches/master/5)](https://travis-ci.org/LazyMechanic/fbi)           |
+| Windows  | gcc-8.1.0 | [![Build Status](https://appveyor-matrix-badges.herokuapp.com/repos/LazyMechanic/fbi/branch/master/1)](https://ci.appveyor.com/project/LazyMechanic/fbi) |
+| Windows  | gcc-7.3.0 | [![Build Status](https://appveyor-matrix-badges.herokuapp.com/repos/LazyMechanic/fbi/branch/master/2)](https://ci.appveyor.com/project/LazyMechanic/fbi) |
+| Windows  | msvc-16   | [![Build Status](https://appveyor-matrix-badges.herokuapp.com/repos/LazyMechanic/fbi/branch/master/3)](https://ci.appveyor.com/project/LazyMechanic/fbi) |
+| Windows  | msvc-15   | [![Build Status](https://appveyor-matrix-badges.herokuapp.com/repos/LazyMechanic/fbi/branch/master/4)](https://ci.appveyor.com/project/LazyMechanic/fbi) |
+| Windows  | msvc-14   | [![Build Status](https://appveyor-matrix-badges.herokuapp.com/repos/LazyMechanic/fbi/branch/master/5)](https://ci.appveyor.com/project/LazyMechanic/fbi) |
 
 # Dependencies
 - [Google test](https://github.com/google/googletest) -- if you need run tests (optional)
