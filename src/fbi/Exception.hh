@@ -8,7 +8,7 @@ class Exception : public std::exception
 {
 public:
     explicit Exception(const std::string& callFunc, const std::string& msg);
-    char const* what() const override;
+    char const* what() const noexcept override;
 
 protected:
     std::string m_callFunc;

@@ -3,7 +3,7 @@
 namespace fbi {
 Exception::Exception(const std::string& callFunc, const std::string& msg) : m_callFunc(callFunc), m_msg(msg) {}
 
-char const* Exception::what() const
+char const* Exception::what() const noexcept
 {
     std::string out = m_callFunc + ": " + m_msg;
     return out.c_str();
