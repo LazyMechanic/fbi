@@ -85,7 +85,7 @@ public:
      * If you want different conventions, write your own routines to go
      * between BigUnsignedInABase and strings.  It's not hard.
      */
-    operator std::string() const;
+    std::string toString() const;
     BigUnsignedInABase(const std::string& s, Base base);
 
 public:

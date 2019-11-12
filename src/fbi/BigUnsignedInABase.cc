@@ -171,7 +171,7 @@ bool BigUnsignedInABase::operator!=(const BigUnsignedInABase& x) const
     return !operator==(x);
 }
 
-BigUnsignedInABase::operator std::string() const
+std::string BigUnsignedInABase::toString() const
 {
     if (base > 36)
         throw std::runtime_error{

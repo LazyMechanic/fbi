@@ -7,7 +7,7 @@
 namespace fbi {
 std::string bigUnsignedToString(const BigUnsigned& x)
 {
-    return std::string(BigUnsignedInABase(x, 10));
+    return std::string{ BigUnsignedInABase{ x, 10 }.toString() };
 }
 
 std::string bigIntegerToString(const BigInteger& x)
@@ -18,8 +18,8 @@ std::string bigIntegerToString(const BigInteger& x)
 
 BigUnsigned stringToBigUnsigned(const std::string& s)
 {
-    return BigUnsigned(BigUnsignedInABase(s, 10));
-}
+    return BigUnsigned{ BigUnsignedInABase{ s, 10 } };
+} // namespace fbi
 
 BigInteger stringToBigInteger(const std::string& s)
 {
@@ -49,7 +49,7 @@ std::ostream& operator<<(std::ostream& os, const BigUnsigned& x)
         throw std::runtime_error{
             "std::ostream << BigUnsigned: Could not determine the desired base from output-stream flags"
         };
-    std::string s = std::string(BigUnsignedInABase(x, base));
+    std::string s = std::string{ BigUnsignedInABase{ x, base }.toString() };
     os << s;
     return os;
 }
