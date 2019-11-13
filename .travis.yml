@@ -7,7 +7,6 @@ matrix:
     ### GCC
     - os: linux
       compiler: gcc
-      env: BUILD_TYPE=Release
       addons:
         apt:
           sources:
@@ -17,7 +16,6 @@ matrix:
             - gcc-9
     - os: linux
       compiler: gcc
-      env: BUILD_TYPE=Release
       addons:
         apt:
           sources:
@@ -27,7 +25,6 @@ matrix:
             - gcc-8
     - os: linux
       compiler: gcc
-      env: BUILD_TYPE=Release
       addons:
         apt:
           sources:
@@ -38,7 +35,6 @@ matrix:
     ### Clang
     - os: linux
       compiler: clang
-      env: BUILD_TYPE=Release
       addons:
         apt:
           sources:
@@ -46,11 +42,8 @@ matrix:
             - llvm-toolchain-trusty-8
           packages:
             - clang-8
-      before_script:
-        - sudo ln -s /usr/local/clang-7.0.0/bin/* /usr/local/bin
     - os: linux
       compiler: clang
-      env: BUILD_TYPE=Release
       addons:
         apt:
           sources:
@@ -58,25 +51,58 @@ matrix:
             - llvm-toolchain-trusty-7
           packages:
             - clang-7
-      before_script:
-        - sudo ln -s /usr/local/clang-7.0.0/bin/* /usr/local/bin
+    ###### OSX
+    ### GCC
+    - os: osx
+      compiler: gcc
+      osx_image: xcode9.4
+    - os: osx
+      compiler: gcc
+      osx_image: xcode10
+    - os: osx
+      compiler: gcc
+      osx_image: xcode11
+    - os: osx
+      compiler: gcc
+      osx_image: xcode11.2
+    ### Clang
+    - os: osx
+      compiler: clang
+      osx_image: xcode9.4
+    - os: osx
+      compiler: clang
+      osx_image: xcode10
+    - os: osx
+      compiler: clang
+      osx_image: xcode11
+    - os: osx
+      compiler: clang
+      osx_image: xcode11.2
+
+
+install:
+    - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then export CMAKE="cmake"; fi
+    - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then export CTEST="ctest"; fi
+    - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then brew update; fi
+    - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then brew upgrade cmake -v; fi
+    
+    - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then export CMAKE="/opt/cmake/bin/cmake"; fi
+    - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then export CTEST="/opt/cmake/bin/ctest"; fi
+    - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then sudo wget https://github.com/Kitware/CMake/releases/download/v3.16.0-rc3/cmake-3.16.0-rc3-Linux-x86_64.tar.gz; fi
+    - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then sudo tar -xzf cmake-3.16.0-rc3-Linux-x86_64.tar.gz; fi
+    - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then sudo mv cmake-3.16.0-rc3-Linux-x86_64 /opt/cmake; fi
+    - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then sudo ln -s /usr/local/clang-7.0.0/bin/* /usr/local/bin; fi
+
+    - sudo $CMAKE --version 
+
+    # Download googletest
+    - sudo wget https://github.com/google/googletest/archive/release-1.10.0.tar.gz
+    - sudo tar -xzf release-1.10.0.tar.gz
+
+    - export GTEST_DIR="$(pwd)/googletest-release-1.10.0"
+    - export BUILD_TYPE=Release
 
 script:
-  # Get newest cmake
-  - CMAKE_DIR="/opt/cmake"
-  - CMAKE="$CMAKE_DIR/bin/cmake"
-  - CTEST="$CMAKE_DIR/bin/ctest"
-
-  - sudo wget "https://github.com/Kitware/CMake/releases/download/v3.16.0-rc3/cmake-3.16.0-rc3-Linux-x86_64.tar.gz"
-  - sudo tar -xzf cmake-3.16.0-rc3-Linux-x86_64.tar.gz
-  - sudo mv cmake-3.16.0-rc3-Linux-x86_64 "$CMAKE_DIR"
-
-  # Download googletest
-  - sudo wget https://github.com/google/googletest/archive/release-1.10.0.tar.gz
-  - sudo tar -xzf release-1.10.0.tar.gz
-
-  - GTEST_DIR="$(pwd)/googletest-release-1.10.0"
-
   - # Compile googletest
   - cd "$GTEST_DIR"
   - sudo mkdir build 
